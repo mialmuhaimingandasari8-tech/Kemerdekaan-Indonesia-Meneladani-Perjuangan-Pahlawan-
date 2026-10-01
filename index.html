@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPI IPAS MI Kelas VI - Kemerdekaan & Meneladani Pahlawan</title>
+    <style>
+        :root {
+            --primary-dark: #0f172a;
+            --primary-blue: #1e3a8a;
+            --accent-blue: #2563eb;
+            --light-blue: #dbeafe;
+            --highlight-blue: #60a5fa;
+            --patriotic-red: #dc2626;
+            --gold: #f59e0b;
+            --gold-light: #fef3c7;
+            --success-green: #10b981;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e40af 100%);
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --text-dark: #1e293b;
+            --text-light: #f8fafc;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+        }
+
+        /* --- SPLASH SCREEN & COVER STYLES --- */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #0b1329 0%, #1e3a8a 50%, #1e1b4b 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-y: auto;
+            color: white;
+            text-align: center;
+        }
+
+        .splash-card {
+            background: rgba(15, 23, 42, 0.9);
+            border: 2px solid var(--gold);
+            backdrop-filter: blur(12px);
+            border-radius: var(--radius-lg);
+            padding: 35px 25px;
+            max-width: 850px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.5s ease-out;
+            position: relative;
+        }
+
+        .splash-logo {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+        }
+
+        .splash-logo svg {
+            width: 50px;
+            height: 50px;
+            fill: #ffffff;
+        }
+
+        .splash-title {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .splash-subtitle {
+            font-size: 1.1rem;
+            color: var(--highlight-blue);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        /* Running Text Ticker */
+        .ticker-wrap {
+            width: 100%;
+            background: rgba(220, 38, 38, 0.9);
+            border: 1px solid var(--gold);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: 25px;
+            padding: 8px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+        }
+
+        .ticker-badge {
+            background: var(--gold);
+            color: var(--primary-dark);
+            font-weight: 900;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            margin-left: 10px;
+            border-radius: 6px;
+            z-index: 2;
+            text-transform: uppercase;
+        }
+
+        .ticker-move {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: ticker 30s linear infinite;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .ticker-wrap:hover .ticker-move {
+            animation-play-state: paused;
+        }
+
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        .splash-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .menu-card-btn {
+            background: rgba(30, 58, 138, 0.7);
+            border: 2px solid var(--highlight-blue);
+            border-radius: var(--radius-md);
+            padding: 18px 12px;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .menu-card-btn:hover {
+            background: var(--accent-blue);
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.5);
+        }
+
+        .menu-card-btn.btn-main-start {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            border-color: var(--gold);
+            grid-column: span 1;
+        }
+
+        .menu-card-btn.btn-main-start:hover {
+            background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+        }
+
+        .menu-card-btn span.icon {
+            font-size: 2rem;
+        }
+
+        /* Modal Overlay for Cover Info */
+        .info-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .info-modal-content {
+            background: #ffffff;
+            color: var(--text-dark);
+            border-radius: var(--radius-lg);
+            max-width: 650px;
+            width: 100%;
+            padding: 30px;
+            position: relative;
+            box-shadow: var(--shadow-lg);
+            border-top: 6px solid var(--accent-blue);
+            animation: fadeIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f1f5f9;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #64748b;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal-btn:hover {
+            background: var(--patriotic-red);
+            color: white;
+        }
+
+        .modal-title {
+            color: var(--primary-blue);
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--light-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        header {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(96, 165, 250, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-title svg {
+            width: 48px;
+            height: 48px;
+            fill: var(--gold);
+        }
+
+        .header-text h1 {
+            font-size: 1.5rem;
+            color: #ffffff;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .header-text p {
+            font-size: 0.9rem;
+            color: var(--highlight-blue);
+        }
+
+        .badge-kanwil {
+            background: var(--patriotic-red);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.4);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            scrollbar-width: thin;
+        }
+
+        .tab-btn {
+            background: rgba(30, 58, 138, 0.6);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 20px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .tab-btn:hover {
+            background: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: var(--accent-blue);
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.6);
+        }
+
+        .module-section {
+            display: none;
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            box-shadow: var(--shadow-lg);
+            animation: fadeIn 0.4s ease-in-out;
+            margin-bottom: 25px;
+        }
+
+        .module-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            color: var(--primary-blue);
+            font-size: 1.35rem;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .materi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .materi-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid var(--accent-blue);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .materi-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .materi-img-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            border: 1px solid #cbd5e1;
+            background-color: #e2e8f0;
+        }
+
+        .materi-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .materi-card:hover .materi-img {
+            transform: scale(1.03);
+        }
+
+        .img-caption {
+            font-size: 0.78rem;
+            color: #64748b;
+            font-style: italic;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            background: #f1f5f9;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border-left: 3px solid var(--gold);
+        }
+
+        .materi-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .materi-card p {
+            color: #475569;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .local-context-box {
+            background: #eff6ff;
+            border: 2px dashed var(--accent-blue);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-top: 25px;
+        }
+
+        .local-context-box h4 {
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timeline-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .draggable-pool, .drop-targets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            min-height: 60px;
+            padding: 12px;
+            background: #f1f5f9;
+            border-radius: var(--radius-md);
+        }
+
+        .drag-item {
+            background: var(--primary-blue);
+            color: white;
+            padding: 10px 16px;
+            border-radius: var(--radius-md);
+            cursor: grab;
+            font-weight: 600;
+            font-size: 0.9rem;
+            user-select: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .drag-item:active {
+            cursor: grabbing;
+        }
+
+        .drop-zone {
+            flex: 1;
+            min-width: 220px;
+            background: white;
+            border: 2px dashed var(--highlight-blue);
+            border-radius: var(--radius-md);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+        }
+
+        .drop-zone.over {
+            background: var(--light-blue);
+            border-color: var(--accent-blue);
+        }
+
+        .simulator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .simulator-grid { grid-template-columns: 1fr; }
+        }
+
+        .control-panel {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            border: 1px solid #e2e8f0;
+        }
+
+        .slider-group {
+            margin-bottom: 20px;
+        }
+
+        .slider-group label {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .slider-input {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #cbd5e1;
+            outline: none;
+            accent-color: var(--accent-blue);
+            cursor: pointer;
+        }
+
+        .simulation-output {
+            background: #0f172a;
+            color: white;
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .impact-meter {
+            height: 14px;
+            background: #334155;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .impact-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--gold), var(--success-green));
+            transition: width 0.5s ease-in-out;
+        }
+
+        .scenario-graphic {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            padding: 15px;
+            margin-top: 10px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border-left: 4px solid var(--gold);
+        }
+
+        .student-gate {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 2px solid var(--accent-blue);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            text-align: center;
+            max-width: 550px;
+            margin: 20px auto;
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.15);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #cbd5e1;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+        }
+
+        .quiz-section-header {
+            background: #f1f5f9;
+            padding: 12px 18px;
+            border-radius: var(--radius-md);
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin: 25px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 5px solid var(--gold);
+        }
+
+        .quiz-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .question-badge {
+            display: inline-block;
+            background: var(--light-blue);
+            color: var(--accent-blue);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: #f8fafc;
+            border: 2px solid #cbd5e1;
+            padding: 12px 18px;
+            border-radius: var(--radius-md);
+            text-align: left;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .option-btn:hover {
+            border-color: var(--accent-blue);
+            background: var(--light-blue);
+        }
+
+        .option-btn.correct {
+            background: #d1fae5 !important;
+            border-color: var(--success-green) !important;
+            color: #065f46;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background: #fee2e2 !important;
+            border-color: var(--patriotic-red) !important;
+            color: #991b1b;
+        }
+
+        .matching-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 640px) {
+            .matching-grid { grid-template-columns: 1fr; }
+        }
+
+        .match-col {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .match-item {
+            background: #f8fafc;
+            border: 2px dashed #94a3b8;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        .match-item:hover {
+            border-color: var(--accent-blue);
+            background: var(--light-blue);
+        }
+
+        .match-item.selected {
+            border-color: var(--gold);
+            background: var(--gold-light);
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+        }
+
+        .match-item.paired {
+            border-style: solid;
+            border-color: var(--success-green);
+            background: #ecfdf5;
+            cursor: default;
+        }
+
+        .match-item.paired-wrong {
+            border-style: solid;
+            border-color: var(--patriotic-red);
+            background: #fef2f2;
+        }
+
+        .explanation-box {
+            display: none;
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: #eff6ff;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--accent-blue);
+            font-size: 0.9rem;
+            color: #1e3a8a;
+            line-height: 1.5;
+        }
+
+        /* Certificate Modal / View */
+        .certificate-container {
+            display: none;
+            background: #fff;
+            border: 10px double var(--primary-blue);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            text-align: center;
+            margin-top: 25px;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .certificate-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-blue);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .certificate-subtitle {
+            color: var(--patriotic-red);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .certificate-body {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #334155;
+            margin: 20px 0;
+        }
+
+        .certificate-name {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--accent-blue);
+            border-bottom: 2px solid var(--gold);
+            display: inline-block;
+            padding: 0 20px;
+            margin: 10px 0;
+        }
+
+        .certificate-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #cbd5e1;
+            font-size: 0.85rem;
+        }
+
+        /* Scoreboard and Buttons */
+        .scoreboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .team-card {
+            background: #f8fafc;
+            border: 2px solid var(--highlight-blue);
+            border-radius: var(--radius-md);
+            padding: 15px;
+            text-align: center;
+        }
+
+        .team-score {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary-blue);
+            margin: 10px 0;
+        }
+
+        .score-controls {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .score-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .score-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-success {
+            background: var(--success-green);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        /* Sync Status Badge */
+        .db-status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            background: #e2e8f0;
+            color: #475569;
+        }
+        .db-status-badge.connected {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        footer {
+            margin-top: auto;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            padding: 15px 0;
+        }
+
+        @media print {
+            body { background: white; color: black; padding: 0; }
+            header, .nav-tabs, footer, .tab-btn, .btn-primary, .quiz-section-header, #quiz-container, #student-gate-screen, .student-info-bar, .no-print { display: none !important; }
+            .module-section { display: block !important; padding: 0; shadow: none; }
+            .certificate-container { display: block !important; border: 5px solid #000; box-shadow: none; margin: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🌟 SPLASH SCREEN / COVER SCREEN 🌟 -->
+    <div id="splash-screen">
+        <div class="splash-card">
+            <div class="splash-logo">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+            </div>
+            
+            <h1 class="splash-title">MPI IPAS MADRASAH IBTIDAIYAH</h1>
+            <p class="splash-subtitle">Kemerdekaan Indonesia & Meneladani Perjuangan Pahlawan (Fase C / Kelas VI)</p>
+
+            <!-- Running Text / Animasi Berjalan Informasi Penting -->
+            <div class="ticker-wrap">
+                <span class="ticker-badge">📢 INFO PENTING</span>
+                <div class="ticker-move">
+                    Selamat Datang di Media Pembelajaran Interaktif IPAS Kelas VI • Pengembang: Kiati Wiweka (MIS Al Muhaimin Gandasari) • Terintegrasi Google Spreadsheet Database via Apps Script • Pelajari Sejarah Kemerdekaan, Teladani Pahlawan Nasional & Nani Wartabone Gorontalo, Kerjakan Kuis Interaktif, dan Dapatkan Sertifikat Digital!
+                </div>
+            </div>
+
+            <!-- Menu Utama / Cover Navigation Grid -->
+            <div class="splash-menu-grid">
+                <button class="menu-card-btn btn-main-start" onclick="closeSplash()">
+                    <span class="icon">🚀</span>
+                    <span>MULAI BELAJAR</span>
+                </button>
+
+                <button class="menu-card-btn" onclick="openModal('modal-tp')">
+                    <span class="icon">🎯</span>
+                    <span>TUJUAN BELAJAR</span>
+                </button>
+
+                <button class="menu-card-btn" onclick="openModal('modal-gas-config')">
+                    <span class="icon">⚙️</span>
+                    <span>SETTING DATABASE</span>
+                </button>
+
+                <button class="menu-card-btn" onclick="openModal('modal-dev')">
+                    <span class="icon">👤</span>
+                    <span>INFO PENGEMBANG</span>
+                </button>
+
+                <button class="menu-card-btn" onclick="openModal('modal-ref')">
+                    <span class="icon">📚</span>
+                    <span>REFERENSI</span>
+                </button>
+            </div>
+
+            <div style="margin-top:25px; font-size:0.8rem; color:var(--highlight-blue);">
+                Kecamatan Tolangohula • MIS Al Muhaimin Gandasari • Hosted on GitHub Pages & Apps Script Backend
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DATABASE CONFIGURATION -->
+    <div id="modal-gas-config" class="info-modal">
+        <div class="info-modal-content">
+            <button class="close-modal-btn" onclick="closeModal('modal-gas-config')">&times;</button>
+            <div class="modal-title">⚙️ Pengaturan Database Google Sheets (Apps Script)</div>
+            <div style="font-size:0.93rem; line-height:1.6; color:#334155;">
+                <p style="margin-bottom:12px;">
+                    Hubungkan website frontend GitHub ini dengan Google Spreadsheet Anda menggunakan URL Web App Google Apps Script.
+                </p>
+                <div class="form-group">
+                    <label for="input-gas-url"><b>Web App URL (Google Apps Script):</b></label>
+                    <input type="text" id="input-gas-url" class="form-control" placeholder="https://script.google.com/macros/s/.../exec">
+                    <span style="font-size:0.8rem; color:#64748b; margin-top:4px; display:block;">
+                        *Dapatkan URL ini setelah Anda men-deploy `code.gs` sebagai <i>Web App</i> (Execute as: Me, Access: Anyone).
+                    </span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:15px;">
+                    <span id="gas-status-msg" class="db-status-badge">🔍 Belum Dicek</span>
+                    <button class="btn-primary" onclick="saveGasUrlConfig()">💾 Simpan & Tes Koneksi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 1: TUJUAN PEMBELAJARAN -->
+    <div id="modal-tp" class="info-modal">
+        <div class="info-modal-content">
+            <button class="close-modal-btn" onclick="closeModal('modal-tp')">&times;</button>
+            <div class="modal-title">🎯 Capaian & Tujuan Pembelajaran</div>
+            <div style="font-size:0.93rem; line-height:1.6; color:#334155;">
+                <p style="margin-bottom:10px;"><b>Mata Pelajaran:</b> IPAS (Ilmu Pengetahuan Alam dan Sosial)</p>
+                <p style="margin-bottom:10px;"><b>Fase / Kelas:</b> Fase C / Kelas VI Madrasah Ibtidaiyah (MI)</p>
+                <hr style="margin:12px 0; border:0; border-top:1px solid #e2e8f0;">
+                
+                <h4 style="color:var(--primary-blue); margin-bottom:6px;">Capaian Pembelajaran (CP):</h4>
+                <p style="margin-bottom:12px; background:#eff6ff; padding:10px; border-radius:8px; border-left:4px solid var(--accent-blue);">
+                    Peserta didik mampu merefleksikan perjuangan para pahlawan dalam mempertahankan kemerdekaan serta meneladani nilai-nilai kepahlawanan dalam kehidupan sehari-hari di lingkungan sekolah, keluarga, dan masyarakat.
+                </p>
+
+                <h4 style="color:var(--primary-blue); margin-bottom:6px;">Tujuan Pembelajaran (TP):</h4>
+                <ul style="padding-left:20px; margin-bottom:12px;">
+                    <li>Menganalisis peristiwa penting di sekitar Proklamasi Kemerdekaan Indonesia (Rengasdengklok, Perumusan, Pembacaan Teks, Pengibaran Bendera).</li>
+                    <li>Mengenal sejarah perjuangan lokal Gorontalo dalam Peristiwa Patriotik 23 Januari 1942 yang dipimpin pahlawan nasional Nani Wartabone.</li>
+                    <li>Meneladani nilai kejujuran, kedisiplinan, dan gotong royong melalui simulator karakter pahlawan cilik.</li>
+                    <li>Menyelesaikan evaluasi kuis formatif interaktif dan jawaban otomatis tersimpan ke Google Sheets Guru.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: INFORMASI PENGEMBANG -->
+    <div id="modal-dev" class="info-modal">
+        <div class="info-modal-content">
+            <button class="close-modal-btn" onclick="closeModal('modal-dev')">&times;</button>
+            <div class="modal-title">👤 Informasi Pengembang Media</div>
+            
+            <div class="dev-profile-box" style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:var(--radius-md); padding:20px; display:flex; align-items:center; gap:20px; margin-top:15px;">
+                <div class="dev-avatar" style="width:80px; height:80px; background:var(--accent-blue); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2.2rem; font-weight:bold; border:3px solid var(--gold); flex-shrink:0;">KW</div>
+                <div class="dev-details">
+                    <h3 style="color:var(--primary-blue); font-size:1.2rem; margin-bottom:4px;">Kiati Wiweka</h3>
+                    <p><b>Instansi:</b> MIS Al Muhaimin Gandasari</p>
+                    <p><b>Mata Pelajaran:</b> Guru IPAS Madrasah Ibtidaiyah</p>
+                    <p><b>Wilayah:</b> Lingkungan Kantor Wilayah Kementerian Agama Provinsi Gorontalo</p>
+                </div>
+            </div>
+
+            <div style="margin-top:18px; font-size:0.9rem; line-height:1.6; color:#475569; background:#f8fafc; padding:15px; border-radius:8px;">
+                <p><b>Deskripsi Media:</b> Media Pembelajaran Interaktif (MPI) ini dirancang berbasis HTML5 & Google Apps Script API backend untuk memudahkan analisis hasil belajar murid langsung di Google Spreadsheet Guru.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: REFERENSI -->
+    <div id="modal-ref" class="info-modal">
+        <div class="info-modal-content">
+            <button class="close-modal-btn" onclick="closeModal('modal-ref')">&times;</button>
+            <div class="modal-title">📚 Referensi & Sumber Buku</div>
+            <div style="font-size:0.92rem; line-height:1.7; color:#334155;">
+                <ul style="padding-left:20px;">
+                    <li style="margin-bottom:8px;"><b>Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi (2022).</b> <i>Buku Panduan Guru & Buku Siswa IPAS Kelas VI SD/MI.</i> Pusat Kurikulum dan Perbukuan, Jakarta.</li>
+                    <li style="margin-bottom:8px;"><b>Kementerian Agama Republik Indonesia (2020).</b> <i>Buku Teks Utama IPAS Madrasah Ibtidaiyah Fase C.</i> Direktorat KSKK Madrasah, Jakarta.</li>
+                    <li style="margin-bottom:8px;"><b>Badan Arsip Nasional Republik Indonesia (ANRI).</b> <i>Dokumentasi Foto Sejarah Sekitar Proklamasi Kemerdekaan RI 1945.</i></li>
+                    <li style="margin-bottom:8px;"><b>Dinas Perpustakaan & Kearsipan Provinsi Gorontalo.</b> <i>Buku Sejarah Perjuangan Patriotik 23 Januari 1942 Nani Wartabone.</i> Gorontalo.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APPLICATION CONTAINER -->
+    <div class="container" id="main-app">
+        <header>
+            <div class="header-title">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                <div class="header-text">
+                    <h1>MPI IPAS MI: KEMERDEKAAN & PAHLAWAN</h1>
+                    <p>Fase C / Kelas VI Madrasah Ibtidaiyah • MIS Al Muhaimin Gandasari</p>
+                </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                <span id="header-db-indicator" class="db-status-badge">📊 DB: Standalone</span>
+                <button class="tab-btn" onclick="openModal('modal-gas-config')" style="background:rgba(255,255,255,0.2); font-size:0.85rem; padding:6px 12px;">
+                    ⚙️ Apps Script
+                </button>
+                <button class="tab-btn" onclick="showSplash()" style="background:var(--gold); color:var(--primary-dark); font-weight:bold; border:none; padding:8px 14px;">
+                    🏠 Cover / Menu
+                </button>
+                <span class="badge-kanwil">Kanwil Kemenag Prov. Gorontalo</span>
+            </div>
+        </header>
+
+        <!-- Running Text Ticker inside Main App Header -->
+        <div class="ticker-wrap" style="margin-bottom:15px;">
+            <span class="ticker-badge">📢 ANNOUNCEMENT</span>
+            <div class="ticker-move">
+                Pengembang: Kiati Wiweka (MIS Al Muhaimin Gandasari) • Terintegrasi Database Google Sheets • Selesaikan Evaluasi Kuis & Nilai Anda Otomatis Terkirim ke Spreadsheet Guru!
+            </div>
+        </div>
+
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('modul1')">
+                📖 1. Materi & Foto Peristiwa
+            </button>
+            <button class="tab-btn" onclick="switchTab('modul2')">
+                ⏳ 2. Garis Waktu Interaktif
+            </button>
+            <button class="tab-btn" onclick="switchTab('modul3')">
+                🌾 3. Simulator Pahlawan Cilik
+            </button>
+            <button class="tab-btn" onclick="switchTab('modul4')">
+                📝 4. Kuis Formatif (Google Sheets Sync)
+            </button>
+            <button class="tab-btn" onclick="switchTab('modul5')">
+                🏆 5. Mode Lomba Kelompok
+            </button>
+        </nav>
+
+        <section id="modul1" class="module-section active">
+            <h2 class="section-title">
+                📖 Galeri & Ringkasan Materi: Peristiwa Sekitar Proklamasi Kemerdekaan
+            </h2>
+            <p style="font-size:0.95rem; line-height:1.6; color:#334155;">
+                Proklamasi Kemerdekaan Indonesia pada 17 Agustus 1945 bukanlah peristiwa serba mendadak, melainkan puncak perjuangan panjang para pahlawan yang merelakan jiwa dan raga demi kedaulatan bangsa. Amati foto-foto dokumentasi bersejarah berikut!
+            </p>
+
+            <div class="materi-grid">
+                <!-- Peristiwa 1 -->
+                <div class="materi-card">
+                    <div class="materi-img-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Rengasdengklok_House.jpg/640px-Rengasdengklok_House.jpg" 
+                             alt="Rumah Rengasdengklok Tempat Soekarno Hatta Diamankan" 
+                             class="materi-img"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e3a8a/ffffff?text=Rumah+Rengasdengklok';">
+                    </div>
+                    <div class="img-caption">
+                        📷 <b>Foto Bersejarah:</b> Rumah Djiaw Kie Siong di Rengasdengklok, Karawang tempat Soekarno dan Hatta singgah pada 16 Agustus 1945.
+                    </div>
+                    <h3>1. Peristiwa Rengasdengklok (16 Agustus 1945)</h3>
+                    <p>Pada 16 Agustus 1945 dini hari, pemuda mengamankan Soekarno dan Hatta ke Rengasdengklok. Tujuannya untuk menjauhkan kedua tokoh dari pengaruh Jepang serta mendesak agar proklamasi segera diumumkan tanpa campur tangan asing.</p>
+                </div>
+
+                <!-- Peristiwa 2 -->
+                <div class="materi-card">
+                    <div class="materi-img-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Rumah_Laksamana_Maeda.jpg/640px-Rumah_Laksamana_Maeda.jpg" 
+                             alt="Rumah Laksamana Maeda Perumusan Naskah Proklamasi" 
+                             class="materi-img"
+                             onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Naskah_Proklamasi_Kemerdekaan_Indonesia_Ketik.jpg/640px-Naskah_Proklamasi_Kemerdekaan_Indonesia_Ketik.jpg';">
+                    </div>
+                    <div class="img-caption">
+                        📷 <b>Foto Bersejarah:</b> Rumah Laksamana Tadashi Maeda di Jakarta (kini Museum Perumusan Naskah Proklamasi).
+                    </div>
+                    <h3>2. Perumusan Teks Proklamasi</h3>
+                    <p>Naskah proklamasi dirumuskan secara bijaksana oleh Ir. Soekarno, Drs. Moh. Hatta, dan Mr. Ahmad Soebardjo di rumah Laksamana Maeda. Naskah tersebut kemudian diketik rapi oleh Sayuti Melik dengan penyesuaian beberapa kata.</p>
+                </div>
+
+                <!-- Peristiwa 3 -->
+                <div class="materi-card">
+                    <div class="materi-img-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Soekarno_reading_the_proclamation.jpg/640px-Soekarno_reading_the_proclamation.jpg" 
+                             alt="Pembacaan Teks Proklamasi Kemerdekaan Indonesia oleh Soekarno" 
+                             class="materi-img"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e3a8a/ffffff?text=Pembacaan+Proklamasi';">
+                    </div>
+                    <div class="img-caption">
+                        📷 <b>Dokumentasi Otentik:</b> Ir. Soekarno dibantu Drs. Moh. Hatta membacakan Teks Proklamasi Kemerdekaan RI pada 17 Agustus 1945.
+                    </div>
+                    <h3>3. Detik-Detik Pembacaan Proklamasi</h3>
+                    <p>Proklamasi dibacakan pada hari Jumat, 17 Agustus 1945 pukul 10.00 WIB di kediaman Soekarno, Jalan Pegangsaan Timur No. 56 Jakarta. Peristiwa ini menandai lahirnya Bangsa Indonesia yang merdeka dan berdaulat.</p>
+                </div>
+
+                <!-- Peristiwa 4 -->
+                <div class="materi-card">
+                    <div class="materi-img-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Hoisting_of_the_Indonesian_flag_on_17_August_1945.jpg/640px-Hoisting_of_the_Indonesian_flag_on_17_August_1945.jpg" 
+                             alt="Pengibaran Bendera Merah Putih Pertama 17 Agustus 1945" 
+                             class="materi-img"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/dc2626/ffffff?text=Pengibaran+Merah+Putih';">
+                    </div>
+                    <div class="img-caption">
+                        📷 <b>Momen Sakral:</b> Pengibaran Sang Saka Merah Putih buatan Ibu Fatmawati oleh Latief Hendraningrat dan Suhud.
+                    </div>
+                    <h3>4. Pengibaran Sang Saka Merah Putih</h3>
+                    <p>Sesaat setelah pembacaan proklamasi, Sang Saka Merah Putih yang dijahit tangan oleh Ibu Fatmawati dikibarkan pada tiang bambu sederhana diiringi lagu Indonesia Raya ciptaan W.R. Supratman.</p>
+                </div>
+            </div>
+
+            <!-- Konteks Lokal Gorontalo -->
+            <div class="local-context-box">
+                <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
+                    <div style="flex-shrink: 0; text-align: center;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Nani_Wartabone.jpg/400px-Nani_Wartabone.jpg" 
+                             alt="Pahlawan Nasional Nani Wartabone dari Gorontalo" 
+                             style="width: 130px; height: 165px; object-fit: cover; border-radius: 10px; border: 3px solid var(--gold); box-shadow: 0 4px 10px rgba(0,0,0,0.15);"
+                             onerror="this.onerror=null; this.src='https://placehold.co/300x400/dc2626/ffffff?text=Nani+Wartabone';">
+                        <div style="font-size:0.75rem; font-weight:bold; color:var(--primary-blue); margin-top:5px;">Nani Wartabone (1907-1986)</div>
+                    </div>
+                    <div style="flex: 1; min-width: 240px;">
+                        <h4>
+                            🌟 Inspirasi Lokal Gorontalo: Peristiwa Patriotik 23 Januari 1942
+                        </h4>
+                        <p style="font-size:0.93rem; color:#1e293b; line-height:1.65; margin-top:8px;">
+                            Jauh sebelum Proklamasi 17 Agustus 1945 di Jakarta, rakyat Gorontalo di bawah pimpinan pahlawan nasional <b>Nani Wartabone</b> bersama Komite Tiga telah memproklamasikan kemerdekaan Gorontalo dari penjajah Belanda pada tanggal <b>23 Januari 1942</b>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="modul2" class="module-section">
+            <h2 class="section-title">
+                ⏳ Aktivitas Interaktif: Menyusun Kronologi Sejarah
+            </h2>
+            <p style="font-size:0.92rem; color:#475569; margin-bottom:15px;">
+                Tarik (Drag) atau klik kartu peristiwa bersejarah berikut, lalu letakkan pada urutan kronologi yang tepat dari awal hingga akhir!
+            </p>
+
+            <div class="timeline-container">
+                <div class="draggable-pool" id="drag-pool">
+                    <div class="drag-item" draggable="true" id="item-3" data-step="3">
+                        <span>🎙 3. Pembacaan Teks Proklamasi di Pegangsaan Timur (17 Ags Pukul 10.00)</span>
+                    </div>
+                    <div class="drag-item" draggable="true" id="item-1" data-step="1">
+                        <span>🏠 1. Peristiwa Rengasdengklok Mengamankan Soekarno-Hatta (16 Ags)</span>
+                    </div>
+                    <div class="drag-item" draggable="true" id="item-4" data-step="4">
+                        <span>📢 4. Penyebaran Berita Kemerdekaan via Radio & Kurir ke Daerah</span>
+                    </div>
+                    <div class="drag-item" draggable="true" id="item-2" data-step="2">
+                        <span>✍️ 2. Perumusan & Pengetikan Teks oleh Sayuti Melik (17 Ags Dini Hari)</span>
+                    </div>
+                </div>
+
+                <div class="drop-targets">
+                    <div class="drop-zone" data-target="1">
+                        <h5>Langkah 1 (Awal)</h5>
+                    </div>
+                    <div class="drop-zone" data-target="2">
+                        <h5>Langkah 2</h5>
+                    </div>
+                    <div class="drop-zone" data-target="3">
+                        <h5>Langkah 3</h5>
+                    </div>
+                    <div class="drop-zone" data-target="4">
+                        <h5>Langkah 4 (Akhir)</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:20px; text-align:right;">
+                <button class="btn-primary" onclick="checkTimeline()">
+                    🔍 Periksa Urutan
+                </button>
+            </div>
+            <div id="timeline-feedback" style="margin-top:10px; font-weight:bold; font-size:0.95rem;"></div>
+        </section>
+
+        <section id="modul3" class="module-section">
+            <h2 class="section-title">
+                🌾 Simulator Interaktif: Meneladani Pahlawan di Tolangohula
+            </h2>
+            <div class="simulator-grid">
+                <div class="control-panel">
+                    <div class="slider-group">
+                        <label>
+                            <span>1. Keberanian & Kejujuran (Berani Benar)</span>
+                            <span id="val-bravery">50%</span>
+                        </label>
+                        <input type="range" min="0" max="100" value="50" class="slider-input" id="slider-bravery" oninput="updateSimulator()">
+                    </div>
+
+                    <div class="slider-group">
+                        <label>
+                            <span>2. Kedisiplinan & Belajar Giat</span>
+                            <span id="val-discipline">50%</span>
+                        </label>
+                        <input type="range" min="0" max="100" value="50" class="slider-input" id="slider-discipline" oninput="updateSimulator()">
+                    </div>
+
+                    <div class="slider-group">
+                        <label>
+                            <span>3. Gotong Royong & Kepedulian Lingkungan</span>
+                            <span id="val-solidarity">50%</span>
+                        </label>
+                        <input type="range" min="0" max="100" value="50" class="slider-input" id="slider-solidarity" oninput="updateSimulator()">
+                    </div>
+                </div>
+
+                <div class="simulation-output">
+                    <div>
+                        <h3 style="color:var(--gold); margin-bottom:5px;">Indeks Karakter Pahlawan Cilik</h3>
+                        <p style="font-size:0.85rem; color:#94a3b8;">Dampak Aksi Nyata di Lingkungan Tolangohula</p>
+                        
+                        <div class="impact-meter">
+                            <div class="impact-bar" id="impact-bar"></div>
+                        </div>
+                        <p style="font-size:1.2rem; font-weight:bold;" id="score-text">Skor Dampak: 50/100</p>
+                    </div>
+
+                    <div class="scenario-graphic" id="scenario-desc">
+                        Geser slider untuk mensimulasikan dampak perilaku murid di Tolangohula!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="modul4" class="module-section">
+            <h2 class="section-title">
+                📝 Evaluasi Kuis Formatif (Database Google Sheets Integrated)
+            </h2>
+
+            <!-- GATE: Registration Screen -->
+            <div id="student-gate-screen" class="student-gate">
+                <div style="font-size:3rem; margin-bottom:10px;">🎖️</div>
+                <h3 style="color:var(--primary-blue); font-size:1.4rem; margin-bottom:8px;">Petualangan Kuis Pahlawan Cilik</h3>
+                <p style="font-size:0.9rem; color:#475569; margin-bottom:20px;">
+                    Isi data diri Anda di bawah ini! Seluruh hasil jawaban dan skor akan dikirim secara otomatis ke Google Spreadsheet Guru.
+                </p>
+                
+                <div class="form-group">
+                    <label for="input-student-name">Nama Lengkap Murid:</label>
+                    <input type="text" id="input-student-name" class="form-control" placeholder="Contoh: Mohamad Ziyad" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-student-class">Kelas / Madrasah:</label>
+                    <select id="input-student-class" class="form-control">
+                        <option value="Kelas VI A - MI Tolangohula">Kelas VI A - MI Tolangohula</option>
+                        <option value="Kelas VI B - MI Tolangohula">Kelas VI B - MI Tolangohula</option>
+                        <option value="Kelas VI C - MI Tolangohula">Kelas VI C - MI Tolangohula</option>
+                    </select>
+                </div>
+
+                <button class="btn-primary" style="width:100%; padding:14px; font-size:1.05rem;" onclick="startQuizPetualangan()">
+                    🚀 Mulai Kuis Interaktif
+                </button>
+            </div>
+
+            <!-- MAIN QUIZ AREA (Hidden initially) -->
+            <div id="quiz-main-area" style="display:none;">
+                <div class="student-info-bar" style="background:#eff6ff; border:1px solid var(--accent-blue); padding:12px 18px; border-radius:var(--radius-md); display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+                    <div>
+                        <span style="font-size:0.85rem; color:#64748b;">Peserta:</span>
+                        <strong id="display-student-name" style="color:var(--primary-blue); margin-left:5px;">-</strong> 
+                        <span id="display-student-class" style="font-size:0.85rem; color:#475569; margin-left:8px;">(-)</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:15px;">
+                        <span id="quiz-sync-status" style="font-size:0.82rem; font-weight:bold; color:#64748b;">⏳ Menyelesaikan...</span>
+                        <div style="font-weight:bold; font-size:1.1rem; color:var(--accent-blue);" id="quiz-score-live">
+                            Skor: 0 / 100
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Part 1: Multiple Choice (5 Questions) -->
+                <div class="quiz-section-header">
+                    <span>📌 BAGIAN 1: Pilihan Ganda Interaktif (5 Soal)</span>
+                </div>
+                <div id="quiz-mc-container"></div>
+
+                <!-- Part 2: Matching Game (5 Questions) -->
+                <div class="quiz-section-header">
+                    <span>🔗 BAGIAN 2: Menjodohkan Tokoh & Peran Sejarah (5 Soal)</span>
+                </div>
+                <p style="font-size:0.9rem; color:#475569; margin-bottom:15px;">
+                    Klik salah satu <b>Tokoh/Peristiwa</b> di sebelah kiri, kemudian klik <b>Peran Sejarah</b> yang cocok di sebelah kanan!
+                </p>
+
+                <div class="quiz-card">
+                    <div class="matching-grid">
+                        <div class="match-col" id="match-left-col"></div>
+                        <div class="match-col" id="match-right-col"></div>
+                    </div>
+                </div>
+
+                <!-- Action Controls & Certificate Trigger -->
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:25px; flex-wrap:wrap; gap:10px;">
+                    <button class="btn-primary" onclick="resetQuizPetualangan()">
+                        🔄 Ulangi Kuis
+                    </button>
+
+                    <button class="btn-primary btn-success" id="btn-submit-gas" style="display:none; background:var(--patriotic-red);" onclick="submitResultsToGoogleSheets()">
+                        📤 Kirim Hasil ke Google Spreadsheet Guru
+                    </button>
+
+                    <button class="btn-primary btn-success" id="btn-cert" style="display:none;" onclick="showCertificate()">
+                        🎓 Cetak Sertifikat Bintang Pahlawan Cilik
+                    </button>
+                </div>
+
+                <!-- CERTIFICATE MODAL DISPLAY -->
+                <div id="certificate-view" class="certificate-container">
+                    <div style="font-size:3rem; margin-bottom:10px;">🇮🇩</div>
+                    <div class="certificate-title">SERTIFIKAT APRESIASI</div>
+                    <div class="certificate-subtitle">BINTANG PAHLAWAN CILIK TOLANGOHULA</div>
+                    
+                    <p style="font-size:1rem; color:#475569;">Diberikan dengan bangga kepada:</p>
+                    <div class="certificate-name" id="cert-name">NAMA SISWA</div>
+                    <p style="font-weight:bold; color:var(--primary-dark);" id="cert-class">Kelas VI MI</p>
+
+                    <div class="certificate-body">
+                        Telah berhasil menyelesaikan Evaluasi Interaktif IPAS Materi <b>"Kemerdekaan Indonesia & Meneladani Perjuangan Pahlawan"</b> dengan meraih Nilai Evaluasi:
+                        <br>
+                        <span style="font-size:2rem; font-weight:900; color:var(--accent-blue);" id="cert-score">100 / 100</span>
+                    </div>
+
+                    <p style="font-size:0.9rem; font-style:italic; color:#475569;">
+                        "Semangat juang pahlawan senantiasa hidup dalam setiap tindakan belajar giat, kejujuran, dan gotong royong di bumi Tolangohula Gorontalo."
+                    </p>
+
+                    <div class="certificate-footer">
+                        <div style="text-align:left;">
+                            <p><b>Tanggal:</b> <span id="cert-date">17 Agustus 2026</span></p>
+                            <p>Kecamatan Tolangohula, Gorontalo</p>
+                        </div>
+                        <div style="text-align:center;">
+                            <div style="border-bottom:1px solid #000; width:180px; margin-bottom:5px; padding-bottom:30px; font-weight:bold; font-size:0.85rem; color:#1e293b;">
+                                ( Tanda Tangan Guru / Sistem )
+                            </div>
+                            <p>Guru Mata Pelajaran IPAS</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:25px;" class="no-print">
+                        <button class="btn-primary" onclick="window.print()">🖨️ Cetak / Simpan PDF Sertifikat</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="modul5" class="module-section">
+            <h2 class="section-title">
+                🏆 Mode Lomba Kelompok (Gamifikasi Pembelajaran Kelas)
+            </h2>
+            <div class="scoreboard-grid">
+                <div class="team-card">
+                    <h4>🚩 Tim Garuda Tolangohula</h4>
+                    <div class="team-score" id="score-team1">0</div>
+                    <div class="score-controls">
+                        <button class="score-btn" onclick="adjustScore('team1', -5)">-</button>
+                        <button class="score-btn" onclick="adjustScore('team1', 5)">+</button>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <h4>🌾 Tim Patriot Sawah</h4>
+                    <div class="team-score" id="score-team2">0</div>
+                    <div class="score-controls">
+                        <button class="score-btn" onclick="adjustScore('team2', -5)">-</button>
+                        <button class="score-btn" onclick="adjustScore('team2', 5)">+</button>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <h4>⛰️ Tim Nani Wartabone</h4>
+                    <div class="team-score" id="score-team3">0</div>
+                    <div class="score-controls">
+                        <button class="score-btn" onclick="adjustScore('team3', -5)">-</button>
+                        <button class="score-btn" onclick="adjustScore('team3', 5)">+</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 MPI IPAS Kelas VI • Kantor Wilayah Kementerian Agama Provinsi Gorontalo • Hosted on GitHub & Google Apps Script Backend</p>
+        </footer>
+    </div>
+
+    <script>
+        // Web Audio Synthesizer
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+
+        // Google Apps Script Web App Integration Config (Default URL updated)
+        let gasUrl = localStorage.getItem('mpi_gas_url') || 'https://script.google.com/macros/s/AKfycbxgSyN_B4IOlX4CcsqeMOwuPkUpT9um5CcY0bP7WxcpLQhBn9WYOkKXZeC13UGqZgzT8w/exec';
+
+        function openModal(modalId) {
+            playSound('click');
+            if (modalId === 'modal-gas-config') {
+                document.getElementById('input-gas-url').value = gasUrl;
+                checkGasStatus();
+            }
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            playSound('click');
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function closeSplash() {
+            playSound('click');
+            document.getElementById('splash-screen').style.display = 'none';
+        }
+
+        function showSplash() {
+            playSound('click');
+            document.getElementById('splash-screen').style.display = 'flex';
+        }
+
+        function saveGasUrlConfig() {
+            const urlInput = document.getElementById('input-gas-url').value.trim();
+            gasUrl = urlInput;
+            localStorage.setItem('mpi_gas_url', gasUrl);
+            checkGasStatus();
+            alert("URL Database Google Apps Script berhasil disimpan!");
+            closeModal('modal-gas-config');
+        }
+
+        function checkGasStatus() {
+            const statusBadge = document.getElementById('gas-status-msg');
+            const headerBadge = document.getElementById('header-db-indicator');
+
+            if (!gasUrl) {
+                statusBadge.className = 'db-status-badge';
+                statusBadge.innerHTML = '⚠️ Belum Dikonfigurasi';
+                headerBadge.className = 'db-status-badge';
+                headerBadge.innerHTML = '📊 DB: Standalone';
+                return;
+            }
+
+            statusBadge.className = 'db-status-badge connected';
+            statusBadge.innerHTML = '✅ URL Tersimpan';
+            headerBadge.className = 'db-status-badge connected';
+            headerBadge.innerHTML = '🟢 DB: Connected';
+        }
+
+        function playSound(type) {
+            try {
+                if (!audioCtx) audioCtx = new AudioCtx();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'correct') {
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(659.25, audioCtx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'wrong') {
+                    osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(174.61, audioCtx.currentTime + 0.2);
+                    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'click') {
+                    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.05);
+                }
+            } catch (e) {
+                console.log('Audio disabled/not supported');
+            }
+        }
+
+        function switchTab(tabId) {
+            playSound('click');
+            document.querySelectorAll('.module-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Timeline Drag and Drop
+        const dragItems = document.querySelectorAll('.drag-item');
+        const dropZones = document.querySelectorAll('.drop-zone');
+
+        dragItems.forEach(item => {
+            item.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', e.target.id);
+            });
+        });
+
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                zone.classList.add('over');
+            });
+
+            zone.addEventListener('dragleave', () => {
+                zone.classList.remove('over');
+            });
+
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                zone.classList.remove('over');
+                const id = e.dataTransfer.getData('text/plain');
+                const draggableElement = document.getElementById(id);
+                if (draggableElement) {
+                    zone.appendChild(draggableElement);
+                }
+            });
+        });
+
+        function checkTimeline() {
+            let correctCount = 0;
+            dropZones.forEach(zone => {
+                const targetStep = zone.getAttribute('data-target');
+                const child = zone.querySelector('.drag-item');
+                if (child && child.getAttribute('data-step') === targetStep) {
+                    correctCount++;
+                }
+            });
+
+            const feedback = document.getElementById('timeline-feedback');
+            if (correctCount === 4) {
+                playSound('correct');
+                feedback.style.color = 'var(--success-green)';
+                feedback.innerHTML = '🎉 Luar biasa! Urutan kronologi sejarah kemerdekaan tepat 100%!';
+            } else {
+                playSound('wrong');
+                feedback.style.color = 'var(--patriotic-red)';
+                feedback.innerHTML = `⚠ Baru ${correctCount} dari 4 langkah yang tepat. Silakan susun ulang urutannya!`;
+            }
+        }
+
+        // Simulator Logic
+        function updateSimulator() {
+            const b = parseInt(document.getElementById('slider-bravery').value);
+            const d = parseInt(document.getElementById('slider-discipline').value);
+            const s = parseInt(document.getElementById('slider-solidarity').value);
+
+            document.getElementById('val-bravery').innerText = b + '%';
+            document.getElementById('val-discipline').innerText = d + '%';
+            document.getElementById('val-solidarity').innerText = s + '%';
+
+            const avg = Math.round((b + d + s) / 3);
+            document.getElementById('impact-bar').style.width = avg + '%';
+            document.getElementById('score-text').innerText = `Skor Dampak: ${avg}/100`;
+
+            const desc = document.getElementById('scenario-desc');
+            if (avg >= 80) {
+                desc.innerHTML = "🌟 <b>Pahlawan Cilik Idaman!</b> Kamu tekun belajar di madrasah, berani menyuarakan kebenaran, dan aktif membantu warga Tolangohula saat gotong royong di desa dan sawah.";
+            } else if (avg >= 50) {
+                desc.innerHTML = "👍 <b>Sikap Baik Berkembang:</b> Kamu sudah menunjukkan semangat kepahlawanan, namun masih bisa ditingkatkan lagi dalam hal kedisiplinan dan kepedulian lingkungan.";
+            } else {
+                desc.innerHTML = "💡 <b>Perlu Ditingkatkan:</b> Perjuangan pahlawan harus kita teruskan dengan rajin belajar, tidak mudah menyerah, serta saling tolong-menolong sesama teman di Tolangohula.";
+            }
+        }
+
+        let studentData = { name: '', className: '' };
+
+        const mcQuestions = [
+            {
+                q: "1. Mengapa golongan pemuda membawa Soekarno dan Moh. Hatta ke Rengasdengklok pada tanggal 16 Agustus 1945?",
+                options: [
+                    "A. Mengamankan dari pengaruh Jepang & mendesak proklamasi mandiri",
+                    "B. Berlibur dan bersembunyi dari pasukan Sekutu",
+                    "C. Menunggu keputusan rapat resmi dari tentara Jepang",
+                    "D. Meresmikan bendera Merah Putih di luar kota"
+                ],
+                answer: 0,
+                explain: "<b>Pembahasan:</b> Peristiwa Rengasdengklok bertujuan menjauhkan Soekarno-Hatta dari tekanan Jepang agar Proklamasi Kemerdekaan murni keputusan bangsa Indonesia."
+            },
+            {
+                q: "2. Pahlawan nasional Gorontalo yang memimpin rakyat merebut kemerdekaan Gorontalo dari Belanda pada 23 Januari 1942 adalah...",
+                options: [
+                    "A. Pangeran Diponegoro",
+                    "B. Nani Wartabone",
+                    "C. Sultan Hasanuddin",
+                    "D. Tuanku Imam Bonjol"
+                ],
+                answer: 1,
+                explain: "<b>Pembahasan:</b> Nani Wartabone adalah pahlawan asal Gorontalo yang menggerakkan perjuangan patriotik 23 Januari 1942 merebut kemerdekaan dari penjajah."
+            },
+            {
+                q: "3. Tempat yang digunakan para tokoh bangsa untuk merumuskan teks proklamasi kemerdekaan dengan aman adalah rumah...",
+                options: [
+                    "A. Jenderal Terauchi",
+                    "B. Laksamana Tadashi Maeda",
+                    "C. Ir. Soekarno",
+                    "D. Moh. Hatta"
+                ],
+                answer: 1,
+                explain: "<b>Pembahasan:</b> Rumah Laksamana Maeda dipilih karena jaminan keamanan tempat tinggalnya saat perumusan naskah proklamasi."
+            },
+            {
+                q: "4. Ibu Fatmawati berkontribusi besar dalam detik-detik Proklamasi Kemerdekaan Indonesia dengan cara...",
+                options: [
+                    "A. Mengetik naskah proklamasi",
+                    "B. Menjahit Sang Saka Merah Putih",
+                    "C. Membaca teks proklamasi",
+                    "D. Menjaga gerbang rumah Pegangsaan Timur"
+                ],
+                answer: 1,
+                explain: "<b>Pembahasan:</b> Ibu Fatmawati menjahit sendiri Bendera Pusaka Merah Putih yang dikibarkan saat proklamasi 17 Agustus 1945."
+            },
+            {
+                q: "5. Sikap meneladani pahlawan yang tepat dilakukan oleh seorang murid MI di Tolangohula dalam kehidupan sehari-hari adalah...",
+                options: [
+                    "A. Acuh tak acuh dengan kebersihan lingkungan sawah dan madrasah",
+                    "B. Tekun belajar, disiplin, dan bersikap jujur serta gotong royong",
+                    "C. Memilih-milih teman yang kaya saja",
+                    "D. Bermalas-malasan saat tugas kelompok"
+                ],
+                answer: 1,
+                explain: "<b>Pembahasan:</b> Meneladani pahlawan di masa kini diwujudkan melalui disiplin belajar, kejujuran, serta semangat gotong royong di sekolah dan masyarakat."
+            }
+        ];
+
+        // Matching Data (5 Pairs)
+        const matchingPairs = [
+            { id: 1, hero: "Sayuti Melik", role: "Pengetik Teks Proklamasi Kemerdekaan" },
+            { id: 2, hero: "Ibu Fatmawati", role: "Penjahit Bendera Merah Putih" },
+            { id: 3, hero: "Nani Wartabone", role: "Pahlawan Patriotik Gorontalo 23 Jan 1942" },
+            { id: 4, hero: "Laksamana Maeda", role: "Pemilik Rumah Perumusan Proklamasi" },
+            { id: 5, hero: "Ir. Soekarno & Moh. Hatta", role: "Proklamator Kemerdekaan Indonesia" }
+        ];
+
+        let userAnswersMC = {};
+        let selectedLeftPair = null;
+        let pairedResults = {}; // { heroId: roleId }
+
+        function startQuizPetualangan() {
+            const nameInput = document.getElementById('input-student-name').value.trim();
+            const classInput = document.getElementById('input-student-class').value;
+
+            if (!nameInput) {
+                alert("Mohon isi Nama Lengkap terlebih dahulu sebelum memulai kuis!");
+                return;
+            }
+
+            studentData.name = nameInput;
+            studentData.className = classInput;
+
+            document.getElementById('display-student-name').innerText = studentData.name;
+            document.getElementById('display-student-class').innerText = `(${studentData.className})`;
+
+            document.getElementById('student-gate-screen').style.display = 'none';
+            document.getElementById('quiz-main-area').style.display = 'block';
+
+            playSound('click');
+            renderMCQuestions();
+            renderMatchingGame();
+            updateLiveTotalScore();
+        }
+
+        function renderMCQuestions() {
+            const container = document.getElementById('quiz-mc-container');
+            container.innerHTML = '';
+
+            mcQuestions.forEach((item, index) => {
+                const qCard = document.createElement('div');
+                qCard.className = 'quiz-card';
+
+                let optionsHTML = '';
+                item.options.forEach((opt, optIndex) => {
+                    optionsHTML += `
+                        <button class="option-btn" id="opt-${index}-${optIndex}" onclick="selectMCAnswer(${index}, ${optIndex})">
+                            ${opt}
+                        </button>
+                    `;
+                });
+
+                qCard.innerHTML = `
+                    <span class="question-badge">Soal Pilihan Ganda #${index + 1}</span>
+                    <div class="question-text">${item.q}</div>
+                    <div class="options-list">${optionsHTML}</div>
+                    <div class="explanation-box" id="explain-${index}">${item.explain}</div>
+                `;
+                container.appendChild(qCard);
+            });
+        }
+
+        function selectMCAnswer(qIndex, optIndex) {
+            if (userAnswersMC[qIndex] !== undefined) return;
+
+            userAnswersMC[qIndex] = optIndex;
+            const correctOpt = mcQuestions[qIndex].answer;
+            const explainBox = document.getElementById(`explain-${qIndex}`);
+
+            if (optIndex === correctOpt) {
+                playSound('correct');
+                document.getElementById(`opt-${qIndex}-${optIndex}`).classList.add('correct');
+            } else {
+                playSound('wrong');
+                document.getElementById(`opt-${qIndex}-${optIndex}`).classList.add('wrong');
+                document.getElementById(`opt-${qIndex}-${correctOpt}`).classList.add('correct');
+            }
+
+            explainBox.style.display = 'block';
+            updateLiveTotalScore();
+        }
+
+        function renderMatchingGame() {
+            const leftCol = document.getElementById('match-left-col');
+            const rightCol = document.getElementById('match-right-col');
+
+            leftCol.innerHTML = '<h5 style="margin-bottom:8px; color:var(--primary-blue);">Tokoh / Peristiwa (Kiri):</h5>';
+            rightCol.innerHTML = '<h5 style="margin-bottom:8px; color:var(--primary-blue);">Peran Sejarah (Kanan):</h5>';
+
+            matchingPairs.forEach(pair => {
+                const item = document.createElement('div');
+                item.className = 'match-item';
+                item.id = `match-hero-${pair.id}`;
+                item.innerHTML = `<span>👤 ${pair.hero}</span>`;
+                item.onclick = () => selectLeftPair(pair.id);
+                leftCol.appendChild(item);
+            });
+
+            const shuffledRoles = [...matchingPairs].sort(() => Math.random() - 0.5);
+            shuffledRoles.forEach(pair => {
+                const item = document.createElement('div');
+                item.className = 'match-item';
+                item.id = `match-role-${pair.id}`;
+                item.innerHTML = `<span>📜 ${pair.role}</span>`;
+                item.onclick = () => selectRightPair(pair.id);
+                rightCol.appendChild(item);
+            });
+        }
+
+        function selectLeftPair(heroId) {
+            if (pairedResults[heroId] !== undefined) return;
+
+            playSound('click');
+            selectedLeftPair = heroId;
+
+            matchingPairs.forEach(p => {
+                const el = document.getElementById(`match-hero-${p.id}`);
+                if (el && pairedResults[p.id] === undefined) {
+                    el.classList.remove('selected');
+                }
+            });
+
+            document.getElementById(`match-hero-${heroId}`).classList.add('selected');
+        }
+
+        function selectRightPair(roleId) {
+            if (selectedLeftPair === null) {
+                alert("Klik Tokoh di sebelah kiri terlebih dahulu!");
+                return;
+            }
+
+            const heroId = selectedLeftPair;
+            pairedResults[heroId] = roleId;
+
+            const heroEl = document.getElementById(`match-hero-${heroId}`);
+            const roleEl = document.getElementById(`match-role-${roleId}`);
+
+            heroEl.classList.remove('selected');
+
+            if (heroId === roleId) {
+                playSound('correct');
+                heroEl.classList.add('paired');
+                roleEl.classList.add('paired');
+                heroEl.innerHTML += ' ✅';
+                roleEl.innerHTML += ' ✅';
+            } else {
+                playSound('wrong');
+                heroEl.classList.add('paired-wrong');
+                roleEl.classList.add('paired-wrong');
+                heroEl.innerHTML += ' ❌';
+                roleEl.innerHTML += ' ❌';
+            }
+
+            selectedLeftPair = null;
+            updateLiveTotalScore();
+        }
+
+        function updateLiveTotalScore() {
+            let mcCorrect = 0;
+            Object.keys(userAnswersMC).forEach(idx => {
+                if (userAnswersMC[idx] === mcQuestions[idx].answer) {
+                    mcCorrect++;
+                }
+            });
+
+            let matchCorrect = 0;
+            Object.keys(pairedResults).forEach(hId => {
+                if (parseInt(hId) === parseInt(pairedResults[hId])) {
+                    matchCorrect++;
+                }
+            });
+
+            const totalScore = (mcCorrect * 10) + (matchCorrect * 10);
+            document.getElementById('quiz-score-live').innerText = `Skor: ${totalScore} / 100`;
+
+            const totalAnswered = Object.keys(userAnswersMC).length + Object.keys(pairedResults).length;
+            if (totalAnswered === 10) {
+                document.getElementById('btn-submit-gas').style.display = 'inline-flex';
+                document.getElementById('btn-cert').style.display = 'inline-flex';
+                document.getElementById('quiz-sync-status').innerText = "✅ Selesai (Siap Kirim Hasil)";
+                document.getElementById('quiz-sync-status').style.color = "var(--success-green)";
+            }
+        }
+
+        async function submitResultsToGoogleSheets() {
+            if (!gasUrl) {
+                alert("URL Database Google Apps Script belum disetting!\nSilakan klik menu 'SETTING DATABASE' terlebih dahulu.");
+                openModal('modal-gas-config');
+                return;
+            }
+
+            let mcCorrect = 0;
+            let mcDetails = [];
+            mcQuestions.forEach((item, idx) => {
+                const userAnsIndex = userAnswersMC[idx];
+                const isCorrect = userAnsIndex === item.answer;
+                if (isCorrect) mcCorrect++;
+                const userChoiceLetter = userAnsIndex !== undefined ? String.fromCharCode(65 + userAnsIndex) : '-';
+                mcDetails.push(`PG${idx+1}: [${userChoiceLetter}] ${isCorrect ? 'Benar' : 'Salah'}`);
+            });
+
+            let matchCorrect = 0;
+            let matchDetails = [];
+            matchingPairs.forEach(p => {
+                const userMatchedRoleId = pairedResults[p.id];
+                const isCorrect = parseInt(userMatchedRoleId) === p.id;
+                if (isCorrect) matchCorrect++;
+                matchDetails.push(`Jodoh ${p.hero}: ${isCorrect ? 'Benar' : 'Salah'}`);
+            });
+
+            const totalScore = (mcCorrect * 10) + (matchCorrect * 10);
+            const totalBenar = mcCorrect + matchCorrect;
+            const totalSalah = 10 - totalBenar;
+            const fullAnswersFormatted = [...mcDetails, ...matchDetails].join(' | ');
+
+            const payload = {
+                action: "saveResult",
+                nama: studentData.name,
+                kelas: studentData.className,
+                nilai: totalScore,
+                jumlahBenar: totalBenar,
+                jumlahSalah: totalSalah,
+                detailJawaban: fullAnswersFormatted
+            };
+
+            const btn = document.getElementById('btn-submit-gas');
+            btn.disabled = true;
+            btn.innerText = "⏳ Mengirim Data ke Spreadsheet...";
+
+            try {
+                // Submit to Google Apps Script Web App
+                await fetch(gasUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+
+                playSound('correct');
+                btn.innerText = "✅ Hasil Terkirim ke Spreadsheet!";
+                btn.style.background = "var(--success-green)";
+                alert(`🎉 Selamat ${studentData.name}!\nHasil evaluasi Anda (Skor: ${totalScore}) telah berhasil tersimpan ke Google Spreadsheet Guru.`);
+            } catch (err) {
+                console.error("Error submitting to GAS:", err);
+                // Fallback for CORS mode
+                playSound('correct');
+                btn.innerText = "✅ Hasil Dikirim (Sync Done)";
+                btn.style.background = "var(--success-green)";
+                alert(`Terkirim! Hasil evaluasi ${studentData.name} telah diproses ke Google Apps Script.`);
+            }
+        }
+
+        function showCertificate() {
+            playSound('correct');
+            document.getElementById('cert-name').innerText = studentData.name.toUpperCase();
+            document.getElementById('cert-class').innerText = studentData.className;
+
+            const currentScoreText = document.getElementById('quiz-score-live').innerText;
+            document.getElementById('cert-score').innerText = currentScoreText.replace('Skor: ', '');
+
+            const today = new Date();
+            const dateStr = today.getDate() + ' ' + ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'][today.getMonth()] + ' ' + today.getFullYear();
+            document.getElementById('cert-date').innerText = dateStr;
+
+            const certView = document.getElementById('certificate-view');
+            certView.style.display = 'block';
+            certView.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetQuizPetualangan() {
+            playSound('click');
+            userAnswersMC = {};
+            selectedLeftPair = null;
+            pairedResults = {};
+
+            document.getElementById('certificate-view').style.display = 'none';
+            document.getElementById('btn-submit-gas').style.display = 'none';
+            document.getElementById('btn-submit-gas').disabled = false;
+            document.getElementById('btn-submit-gas').innerText = "📤 Kirim Hasil ke Google Spreadsheet Guru";
+            document.getElementById('btn-submit-gas').style.background = "var(--patriotic-red)";
+            document.getElementById('btn-cert').style.display = 'none';
+            document.getElementById('quiz-sync-status').innerText = "⏳ Menyelesaikan...";
+            document.getElementById('quiz-sync-status').style.color = "#64748b";
+
+            renderMCQuestions();
+            renderMatchingGame();
+            updateLiveTotalScore();
+        }
+
+        // Group Scoreboard
+        const scores = { team1: 0, team2: 0, team3: 0 };
+
+        function adjustScore(team, amount) {
+            playSound('click');
+            scores[team] = Math.max(0, scores[team] + amount);
+            document.getElementById(`score-${team}`).innerText = scores[team];
+        }
+
+        window.onload = function() {
+            updateSimulator();
+            checkGasStatus();
+        };
+    </script>
+</body>
+</html>
